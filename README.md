@@ -1,4 +1,4 @@
-# Curso de Closure y Scope
+# Curso de Closure y Scope en JS
 Para iniciar este curso se debe iniciar configurando como en todo proyecto.
 * Tu git
 > git init
@@ -98,3 +98,62 @@ se ejecutó la función papá donde se declararó la variable de dicha función 
 
 Si con este ejemplo aún no entendiste bien como funciona el closure en JS te recomiendo que leas este [articulo](https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8) te explica en detalle paso a paso la ejecucion del closure.
 
+## variables privadas con closures
+JS por su naturaleza no fomenta el uso de datos privados pero por medio de los Closures podemos crear valores que solo puedan ser accedidos por medio de métodos, que no van a estar disponibles fuera de esta función.
+```js
+const person = () =>{
+	var saveName = "Name";
+	return {
+		getName: () =>{
+			return saveName;
+		},
+		setName: (name) =>{
+			saveName = name;
+		}
+	};
+}
+
+newPerson = person();
+console.log(newPerson.getName()); //name
+newPerson.setName('Oscar');
+console.log(newPerson.getName()); //Oscar
+```
+
+de esta manera traemos el valor almacenado en ``saveName`` y para cambiar ese valor debemos usar ``newPerson.setName('Oscar');``. Nosotros no podemos cambiar el valor de ``saveName`` desde cualquier lado de nuestro codigo, unicamente lo podemos hacer usando el metodo ``.setname`` que creamos en ``person``. De esta forma estamos generando un valor que es *privado*
+
+Podemos crear Closures de diferentes formas y también de forma involuntaria, esto significa que no tenemos control de lo que estamos creando, tenemos que tener cuidado con nuestras asignaciones o bloques de código que de alguna manera nosotros no controlemos muchas veces sucede porque no establecimos nuestros elementos correctamente.
+
+Con el uso del Scope y los Closures podemos optimizar nuestros proyectos sin ningún problema.
+
+## Hoisting
+
+El ‘levantamiento’ no es que FISICAMENTE levanta las declaraciones y las pone al principio como muchos explican. Lo que se hace en realidad es tomar ``registros`` en memoria de donde está cada declaración (todo esto previo a que se ejecute el código en sí) y depende si es ``var``, ``let``, ``const`` o una función, JS va a asignarle referencias a cada una.
+Si es:
+
+* **var** : asigna la referencia undefined (si de acá viene el famoso undefined)
+
+* **let/const**: asigna la referencia uninitialized (declarado pero no inicializado)
+
+* **función**: guarda un registro con la función entera (por eso la podemos llamar antes de que este creada)
+
+### Debugger
+En chrome podemos escribir en la barra de navegador 
+> about:blank
+
+ponemos inspeccionar y tenemos nuestra herramienta para debuggear nuestro codigo js
+
+dentro de nuestro codigo debemos escribir ``debugger`` lo cual pausara la ejecucion y nos dara informacion sobre el scope en ese punto. 
+```js
+var a = 'Hello';
+
+function hello() {
+    let b = "Hello World";
+    const c = "Hello World!"
+    if (true) {
+        let d = "Hello World!!"
+        debugger
+    }
+
+}
+hello();
+```
