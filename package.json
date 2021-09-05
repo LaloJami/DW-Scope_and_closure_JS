@@ -1,0 +1,11 @@
+{
+  "name": "closuresyscope",
+  "version": "1.0.0",
+  "description": "El Scope es el alcance que tiene tu variable dentro del código. El Scope es el que se encarga de decidir a que bloques de código va a acceder una variable.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
